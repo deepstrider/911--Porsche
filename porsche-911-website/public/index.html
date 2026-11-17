@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Porsche 911 Carrera — The Four Acts of an Icon</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/porsche-poster.jpg">
+  <link rel="stylesheet" href="style.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="theme-gentian">
+  <!-- Background Ambient Glow & Grid -->
+  <div class="ambient-glow" id="ambientGlow"></div>
+  <div class="studio-grid-overlay"></div>
+
+  <!-- ================================================================= -->
+  <!-- LUXURY PORSCHE NAVIGATION HEADER -->
+  <!-- ================================================================= -->
+  <header class="porsche-nav" id="mainNav">
+    <div class="nav-left">
+      <a href="#scrollWrapper" class="porsche-crest-wrap">
+        <svg class="porsche-shield-icon" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2L37 7V23C37 34 29 43 20 46C11 43 3 34 3 23V7L20 2Z" stroke="#E5A823" stroke-width="2" fill="rgba(229,168,35,0.08)"/>
+          <path d="M20 8L32 12V22C32 29 27 36 20 38C13 36 8 29 8 22V12L20 8Z" fill="#C3002F" fill-opacity="0.3"/>
+          <path d="M12 18H28M12 24H28M20 12V34" stroke="#E5A823" stroke-width="1.2"/>
+        </svg>
+        <div class="porsche-brand-text">
+          <span class="brand-title">PORSCHE</span>
+          <span class="brand-sub">911 CARRERA</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Center Active Telemetry Pill -->
+    <div class="nav-center-telemetry">
+      <div class="telemetry-pill">
+        <span class="pill-dot live-pulse"></span>
+        <span class="pill-act" id="navActLabel">ACT 01</span>
+        <span class="pill-divider">/</span>
+        <span class="pill-label" id="navPhaseName">STUDIO REVEAL</span>
+        <span class="pill-divider">/</span>
+        <span class="pill-value" id="navTimecode">00:00.00</span>
+      </div>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="nav-right">
+      <!-- Direct Navigation Links -->
+      <nav class="nav-links">
+        <a href="#cinemaSection" class="nav-link">DIRECTOR'S CUT</a>
+        <a href="#performance" class="nav-link">SPECS</a>
+        <a href="#cockpit" class="nav-link">COCKPIT</a>
+        <a href="#soundStudio" class="nav-link">SOUND LAB</a>
+      </nav>
+
+      <!-- Audio Synth Toggle -->
+      <button class="nav-btn sound-toggle" id="soundToggleBtn" title="Toggle Flat-Six Boxer Sound">
+        <svg class="icon-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 5L6 9H2V15H6L11 19V5Z"/>
+          <path class="sound-wave sound-wave-1" d="M15.54 8.46C16.48 9.4 17 10.68 17 12C17 13.32 16.48 14.6 15.54 15.54"/>
+          <path class="sound-wave sound-wave-2" d="M19.07 4.93C20.94 6.8 22 9.35 22 12C22 14.65 20.94 17.2 19.07 19.07"/>
+          <line class="mute-slash" x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="sound-label" id="soundLabel">SOUND OFF</span>
+      </button>
+
+      <!-- Exterior Color Theme Switcher -->
+      <div class="color-picker-dropdown">
+        <button class="nav-btn color-trigger" id="colorTriggerBtn" title="Select Exterior Finish">
+          <span class="color-swatch-active" id="activeSwatch"></span>
+          <span class="color-name-label">GENTIAN BLUE</span>
+          <svg class="chevron-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4 6L8 10L12 6"/></svg>
+        </button>
+        <div class="color-palette-menu" id="colorPaletteMenu">
+          <div class="color-option active" data-color="gentian" data-hex="#0b3866" data-name="Gentian Blue Metallic">
+            <span class="color-dot" style="background: linear-gradient(135deg, #072545, #0056b3);"></span>
+            <span>Gentian Blue Metallic</span>
+          </div>
+          <div class="color-option" data-color="guardsred" data-hex="#c3002f" data-name="Guards Red">
+            <span class="color-dot" style="background: linear-gradient(135deg, #7a001a, #e60039);"></span>
+            <span>Guards Red</span>
+          </div>
+          <div class="color-option" data-color="gtsilver" data-hex="#a3a9b0" data-name="GT Silver Metallic">
+            <span class="color-dot" style="background: linear-gradient(135deg, #6c737c, #c9d0d8);"></span>
+            <span>GT Silver Metallic</span>
+          </div>
+          <div class="color-option" data-color="racingyellow" data-hex="#f2be00" data-name="Racing Yellow">
+            <span class="color-dot" style="background: linear-gradient(135deg, #a68200, #ffcc00);"></span>
+            <span>Racing Yellow</span>
+          </div>
+          <div class="color-option" data-color="jetblack" data-hex="#111317" data-name="Jet Black Metallic">
+            <span class="color-dot" style="background: linear-gradient(135deg, #090a0c, #262930);"></span>
+            <span>Jet Black Metallic</span>
+          </div>
+          <div class="color-option" data-color="crayon" data-hex="#d0d0ce" data-name="Crayon Chalk">
+            <span class="color-dot" style="background: linear-gradient(135deg, #b0b0ae, #e8e8e6);"></span>
+            <span>Crayon Chalk</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primary Configurator Link -->
+      <a href="#configure" class="nav-cta-btn">BUILD YOUR 911</a>
+    </div>
+  </header>
+
+  <!-- ================================================================= -->
+  <!-- MAIN PINNED VIDEO SCROLL EXPERIENCE CONTAINER -->
+  <!-- The Four Acts of the Porsche 911 Carrera (Apple-Style Scrubbing) -->
+  <!-- ================================================================= -->
+  <main class="scroll-experience-wrapper" id="scrollWrapper">
+    <section class="video-hero-pinned" id="videoHeroPinned">
+      
+      <!-- Multi-Video Canvas Stage -->
+      <div class="video-canvas-container" id="videoContainer">
+        <!-- ACT 1: Studio Reveal (Flyline & Silhouette) -->
+        <video 
+          id="videoAct1" 
+          class="porsche-video-player act-video active"
+          preload="auto"
+          muted 
+          playsinline 
+          webkit-playsinline
+          poster="assets/images/porsche-poster.jpg">
+          <source src="assets/videos/porsche-studio-carrera.mp4" type="video/mp4">
+          Your browser does not support HTML5 video tags.
+        </video>
+
+        <!-- ACT 2: Macro Engineering & Aerodynamics -->
+        <video 
+          id="videoAct2" 
+          class="porsche-video-player act-video"
+          preload="auto"
+          muted 
+          playsinline 
+          webkit-playsinline>
+          <source src="assets/videos/porsche-macro-details.mp4" type="video/mp4">
+        </video>
+
+        <!-- ACT 3: Cockpit Architecture & Ergonomics -->
+        <video 
+          id="videoAct3" 
+          class="porsche-video-player act-video"
+          preload="auto"
+          muted 
+          playsinline 
+          webkit-playsinline>
+          <source src="assets/videos/porsche-interior-cockpit.mp4" type="video/mp4">
+        </video>
+
+        <!-- ACT 4: Mountain Highway Performance & Dynamics -->
+        <video 
+          id="videoAct4" 
+          class="porsche-video-player act-video"
+          preload="auto"
+          muted 
+          playsinline 
+          webkit-playsinline>
+          <source src="assets/videos/porsche-mountain-drive.mp4" type="video/mp4">
+        </video>
+
+        <!-- Loading Fallback Overlay -->
+        <div class="video-loader-overlay" id="videoLoader">
+          <div class="loader-content">
+            <div class="porsche-crest-spin">
+              <svg viewBox="0 0 50 50" class="spinner-svg">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3"/>
+                <circle cx="25" cy="25" r="20" fill="none" stroke="var(--accent-glow)" stroke-width="3" stroke-dasharray="80" stroke-dashoffset="30"/>
+              </svg>
+            </div>
+            <div class="loader-title">INITIALIZING CINEMATIC ENGINE</div>
+            <div class="loader-status" id="loaderStatus">PREBUFFERING SUPPLIED VIDEO ASSETS...</div>
+            <div class="loader-progress-bar">
+              <div class="loader-progress-fill" id="loaderBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cinema Letterbox Bars -->
+        <div class="letterbox letterbox-top"></div>
+        <div class="letterbox letterbox-bottom"></div>
+        <div class="vignette-overlay"></div>
+        <div class="act-transition-flash" id="actTransitionFlash"></div>
+      </div>
+
+      <!-- Real-time HUD Telemetry Overlays -->
+      <div class="hud-telemetry-layer" id="hudLayer">
+        
+        <!-- Top Left: Vehicle Status & Motion Dynamics -->
+        <div class="hud-box hud-top-left">
+          <div class="hud-tag">PORSCHE ACTIVE STABILITY (PASM)</div>
+          <div class="hud-indicator-row">
+            <span class="hud-badge active" id="hudDriveMode">SPORT CHRONO</span>
+            <span class="hud-badge active" id="hudChassisMode">PASM -10MM</span>
+            <span class="hud-badge" id="hudAeroBadge">AERO: LEVEL 1</span>
+          </div>
+          <div class="hud-motion-state" id="hudMotionState">
+            <span class="motion-arrow">↓</span> SCROLL DOWN TO ADVANCE TIMELINE
+          </div>
+        </div>
+
+        <!-- Top Right: Speed, RPM & PDK Gauges -->
+        <div class="hud-box hud-top-right">
+          <div class="gauge-cluster">
+            <div class="gauge-gear">
+              <span class="gauge-sub">PDK</span>
+              <span class="gear-val" id="hudGear">D3</span>
+            </div>
+            <div class="gauge-speed">
+              <span class="speed-num" id="hudSpeed">68</span>
+              <span class="speed-unit">MPH</span>
+            </div>
+            <div class="gauge-rpm-wrap">
+              <div class="rpm-dial">
+                <svg viewBox="0 0 100 50" class="rpm-svg">
+                  <path d="M 10 45 A 40 40 0 0 1 90 45" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="6"/>
+                  <path id="rpmArc" d="M 10 45 A 40 40 0 0 1 90 45" fill="none" stroke="var(--accent-glow)" stroke-width="6" stroke-dasharray="126" stroke-dashoffset="80"/>
+                </svg>
+                <div class="rpm-text">
+                  <span id="hudRpm">3,850</span>
+                  <span class="rpm-label">RPM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Left: Dynamic Chapter Timestamp Callouts -->
+        <div class="hud-box hud-bottom-left">
+          <div class="hud-act-breadcrumb" id="hudActBreadcrumb">
+            <span class="crumb-act" id="hudCurrentActBadge">ACT 01 OF 04</span>
+            <span class="crumb-sep">•</span>
+            <span class="crumb-phase" id="hudChapterNumber">CHAPTER 01 / 12</span>
+          </div>
+          <div class="hud-chapter-title" id="hudChapterTitle">TIMELESS FLYLINE & STUDIO REVEAL</div>
+          <p class="hud-chapter-desc" id="hudChapterDesc">
+            Unmistakable silhouette defined by the iconic teardrop roofline, flared rear arches, and low-slung athletic stance.
+          </p>
+          <div class="hud-metrics-row" id="hudMetricsRow">
+            <div class="metric-item">
+              <span class="metric-val">379 HP</span>
+              <span class="metric-key">TWIN-TURBO 3.0L</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-val">4.0s</span>
+              <span class="metric-key">0-60 MPH</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-val">182 MPH</span>
+              <span class="metric-key">TOP SPEED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Right: Interactive Frame Scrubber Bar -->
+        <div class="hud-box hud-bottom-right">
+          <div class="scrubber-header">
+            <div class="scrub-time-readout">
+              <span class="time-act" id="hudActName">ACT 01 // STUDIO</span>
+              <span class="time-divider">•</span>
+              <span class="time-current" id="hudCurrentTime">00:00.00</span>
+              <span class="time-divider">/</span>
+              <span class="time-total" id="hudTotalTime">00:07.93</span>
+            </div>
+            <div class="scrub-frame-readout" id="hudFrameReadout">FRAME #001 / 238</div>
+          </div>
+
+          <!-- Interactive Scrubber Track -->
+          <div class="scrubber-track-container" id="scrubberContainer" title="Click or drag to scrub video timeline">
+            <div class="scrubber-track">
+              <!-- Act quadrant markers -->
+              <div class="phase-marker marker-1" style="left: 0%;"><span>ACT 1</span></div>
+              <div class="phase-marker marker-2" style="left: 25%;"><span>ACT 2</span></div>
+              <div class="phase-marker marker-3" style="left: 50%;"><span>ACT 3</span></div>
+              <div class="phase-marker marker-4" style="left: 75%;"><span>ACT 4</span></div>
+              <!-- Fill and Scrubber Handle -->
+              <div class="scrubber-progress-fill" id="scrubProgressFill"></div>
+              <div class="scrubber-thumb" id="scrubberThumb"></div>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Buttons for the 4 Acts -->
+          <div class="scrub-quick-nav">
+            <button class="nav-jump-btn active" data-act="0">01 STUDIO</button>
+            <button class="nav-jump-btn" data-act="1">02 MACRO</button>
+            <button class="nav-jump-btn" data-act="2">03 COCKPIT</button>
+            <button class="nav-jump-btn" data-act="3">04 DYNAMICS</button>
+            <button class="nav-play-toggle-btn" id="playCinematicBtn" title="Play Video at Normal Speed">
+              <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <span>AUTO PLAY</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Center Down-Scroll Prompt -->
+        <div class="scroll-cue" id="scrollCue">
+          <div class="mouse-icon">
+            <div class="wheel"></div>
+          </div>
+          <span class="cue-text">SCROLL DOWN TO ADVANCE VIDEO • SCROLL UP TO REVERSE</span>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ================================================================= -->
+  <!-- ACTS DIRECTORS CUT / FULL-SPEED CINEMA THEATER -->
+  <!-- Dedicated player allowing user to replay each supplied clip in full -->
+  <!-- ================================================================= -->
+  <section class="porsche-section cinema-theater-section" id="cinemaSection">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">CINEMATIC ARCHIVES</span>
+        <h2 class="section-title">THE FOUR ACTS IN MOTION</h2>
+        <p class="section-lead">
+          Explore each supplied chapter in uninterrupted full-speed playback. Captured in pure high-definition cinematography with frame-level precision.
+        </p>
+      </div>
+
+      <!-- Cinema Stage Card -->
+      <div class="cinema-theater-player">
+        <div class="theater-screen-wrapper">
+          <video 
+            id="theaterVideo" 
+            class="theater-video-element" 
+            controls 
+            preload="metadata" 
+            playsinline 
+            poster="assets/images/porsche-poster.jpg">
+            <source id="theaterVideoSource" src="assets/videos/porsche-studio-carrera.mp4" type="video/mp4">
+            Your browser does not support HTML5 video tags.
+          </video>
+          <div class="theater-badge-tag" id="theaterBadgeTag">ACT 01: STUDIO CARREERA REVEAL</div>
+        </div>
+
+        <!-- Act Selection Cards -->
+        <div class="theater-clips-selector">
+          <div class="clip-selector-card active" data-clip="assets/videos/porsche-studio-carrera.mp4" data-title="ACT 01 // STUDIO CARREERA REVEAL" data-desc="Silhouette lighting sweep revealing the aerodynamic 911 flyline and 3D rear LED lightbar.">
+            <div class="clip-card-header">
+              <span class="clip-badge">ACT 01</span>
+              <span class="clip-dur">07.93s</span>
+            </div>
+            <h4>Studio Carrera Reveal</h4>
+            <p>Sculpted proportions and iconic flyline emerge in the studio.</p>
+          </div>
+
+          <div class="clip-selector-card" data-clip="assets/videos/porsche-macro-details.mp4" data-title="ACT 02 // PRECISION MACRO ENGINEERING" data-desc="Close-up examination of the Stuttgart crest, Matrix LED optics, and carbon-ceramic brake architecture.">
+            <div class="clip-card-header">
+              <span class="clip-badge">ACT 02</span>
+              <span class="clip-dur">07.93s</span>
+            </div>
+            <h4>Macro Craftsmanship</h4>
+            <p>The crest, headlights, alloys, and microscopic tolerances.</p>
+          </div>
+
+          <div class="clip-selector-card" data-clip="assets/videos/porsche-interior-cockpit.mp4" data-title="ACT 03 // COCKPIT ERGONOMICS & TECH" data-desc="Panoramic pan through the driver-focused cockpit, analog tachometer, and GT sport steering wheel.">
+            <div class="clip-card-header">
+              <span class="clip-badge">ACT 03</span>
+              <span class="clip-dur">07.93s</span>
+            </div>
+            <h4>Advanced Cockpit</h4>
+            <p>Five-tube digital cluster, sport wheel, and tactile ergonomics.</p>
+          </div>
+
+          <div class="clip-selector-card" data-clip="assets/videos/porsche-mountain-drive.mp4" data-title="ACT 04 // MOUNTAIN HIGHWAY DYNAMICS" data-desc="High-speed alpine run unleashing the 3.0L twin-turbo flat-six through hairpin switchbacks.">
+            <div class="clip-card-header">
+              <span class="clip-badge">ACT 04</span>
+              <span class="clip-dur">07.93s</span>
+            </div>
+            <h4>Alpine Highway Dynamics</h4>
+            <p>Twin-turbo boxer flat-six unleashed on winding mountain roads.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- PORSCHE ENGINEERING & SPECS COMPARISON SECTION -->
+  <!-- ================================================================= -->
+  <section class="porsche-section specs-section" id="performance">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">PURE MOTORSPORT PEDIGREE</span>
+        <h2 class="section-title">THE ARCHITECTURE OF A LEGEND</h2>
+        <p class="section-lead">
+          Every component of the Porsche 911 Carrera is honed on the track and refined for the street. Select a trim below to inspect technical specifications.
+        </p>
+      </div>
+
+      <!-- Interactive Trim Switcher -->
+      <div class="trim-tabs">
+        <button class="trim-tab active" data-trim="carrera">911 CARRERA</button>
+        <button class="trim-tab" data-trim="carreraS">911 CARRERA S</button>
+        <button class="trim-tab" data-trim="carreraGTS">911 CARRERA GTS</button>
+        <button class="trim-tab" data-trim="gt3">911 GT3</button>
+      </div>
+
+      <!-- Spec Cards Grid -->
+      <div class="specs-grid" id="specsGrid">
+        <div class="spec-card">
+          <div class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7V12L15 15"/>
+            </svg>
+          </div>
+          <div class="spec-metric" id="spec0to60">4.0 s</div>
+          <div class="spec-name">0 - 60 MPH ACCELERATION</div>
+          <div class="spec-desc">With Sport Chrono Package & Launch Control active.</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/>
+            </svg>
+          </div>
+          <div class="spec-metric" id="specHp">379 hp</div>
+          <div class="spec-name">MAX POWER OUTPUT</div>
+          <div class="spec-desc">Twin-turbocharged 3.0-liter boxer 6-cylinder engine.</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93"/>
+            </svg>
+          </div>
+          <div class="spec-metric" id="specTopSpeed">182 mph</div>
+          <div class="spec-name">TOP TRACK SPEED</div>
+          <div class="spec-desc">Aerodynamically stabilized with active variable rear spoiler.</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M7 12H17M12 7V17"/>
+            </svg>
+          </div>
+          <div class="spec-metric" id="specTorque">331 lb-ft</div>
+          <div class="spec-name">PEAK TORQUE</div>
+          <div class="spec-desc">Broad plateau from 1,950 to 5,000 RPM for instant response.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- COCKPIT ARCHITECTURE & INTERIOR HIGHLIGHTS SECTION -->
+  <!-- (Directly referencing Act 3 interior video footage) -->
+  <!-- ================================================================= -->
+  <section class="porsche-section cockpit-section" id="cockpit">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">INTERIOR CRAFTSMANSHIP</span>
+        <h2 class="section-title">THE DRIVER-CENTRIC COMMAND CENTER</h2>
+        <p class="section-lead">
+          As revealed in our cockpit cinematography, the 911 interior bridges sixty years of sports car heritage with cutting-edge digital ergonomics.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-tag">01 // DIGITAL INSTRUMENTATION</div>
+          <h3>Analog Soul, Dual 7" Displays</h3>
+          <p>The central analog tachometer remains front and center, flanked by high-resolution 7-inch displays configurable for G-force metrics, navigation maps, and tire telemetry.</p>
+          <div class="feature-footer">Iconic 5-Dial Virtual Cluster • Night Vision Display</div>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-tag">02 // STEERING ERGONOMICS</div>
+          <h3>GT Multifunction Sport Steering Wheel</h3>
+          <p>Directly inspired by the 918 Spyder, featuring tactile knurled rotary drive mode switch to toggle between Normal, Sport, Sport Plus, Individual, and Wet Mode instantly.</p>
+          <div class="feature-footer">Integrated Shift Paddles • Sport Response Button</div>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-tag">03 // INFOTAINMENT</div>
+          <h3>10.9-Inch Porsche Communication Management</h3>
+          <p>Full HD touchscreen seamlessly incorporated into the horizontal dash architecture, offering wireless Apple CarPlay, real-time traffic, and Porsche Connect services.</p>
+          <div class="feature-footer">Burmester® 3D Sound • Voice Pilot AI Assistance</div>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-tag">04 // SHIFT MECHANISM</div>
+          <h3>8-Speed PDK Razor-Fine Toggle</h3>
+          <p>Minimalist center console lever engineered with micro-machined aluminum tactile switches for manual sequential shifting and instant gear changes without power loss.</p>
+          <div class="feature-footer">Dual Wet Clutches • Launch Control Integration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- INTERACTIVE FLAT-SIX SOUND STUDIO & REV PEDAL -->
+  <!-- ================================================================= -->
+  <section class="porsche-section sound-studio-section" id="soundStudio">
+    <div class="section-container">
+      <div class="sound-studio-card">
+        <div class="sound-card-header">
+          <div class="sound-studio-badge">PORSCHE ACOUSTIC LAB</div>
+          <h2>THE FLAT-SIX BOXER SYMPHONY</h2>
+          <p>
+            Experience the acoustic roar of the twin-turbo 3.0-liter boxer engine. Press and hold the throttle pedal below to rev the engine and hear the flat-six harmonic roar in real-time.
+          </p>
+        </div>
+
+        <div class="rev-pedal-interactive">
+          <!-- RPM Circular Gauge Display -->
+          <div class="pedal-gauge-display">
+            <div class="pedal-rpm-dial">
+              <svg viewBox="0 0 200 200" class="pedal-dial-svg">
+                <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+                <circle id="pedalDialArc" cx="100" cy="100" r="85" fill="none" stroke="var(--accent-glow)" stroke-width="10" stroke-dasharray="534" stroke-dashoffset="400" stroke-linecap="round"/>
+              </svg>
+              <div class="pedal-readout">
+                <span class="pedal-rpm-num" id="pedalRpmText">1,200</span>
+                <span class="pedal-rpm-unit">RPM</span>
+                <span class="pedal-gear-badge" id="pedalGearText">NEUTRAL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Rev Control -->
+          <div class="pedal-controls">
+            <button class="throttle-pedal-btn" id="throttlePedalBtn">
+              <div class="pedal-surface">
+                <div class="pedal-ribs">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="pedal-label">PRESS & HOLD THROTTLE</div>
+              </div>
+            </button>
+            <div class="pedal-instructions">
+              Click & hold the throttle or use <kbd>SPACEBAR</kbd> to rev the engine. Toggle sound in the top bar.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- BUILD & CONFIGURE YOUR 911 -->
+  <!-- ================================================================= -->
+  <section class="porsche-section configure-section" id="configure">
+    <div class="section-container">
+      <div class="config-banner-card">
+        <div class="config-content">
+          <span class="section-badge">MAKE IT UNMISTAKABLY YOURS</span>
+          <h2 class="config-title">CONFIGURE YOUR PORSCHE 911</h2>
+          <p class="config-text">
+            Choose from exclusive Paint-to-Sample palettes, personalized leather interiors, sport exhaust packages, and carbon-ceramic composite brakes.
+          </p>
+          <div class="config-actions">
+            <a href="#scrollWrapper" class="config-btn primary-btn" id="restartExperienceBtn">REPLAY SCROLL EXPERIENCE</a>
+            <button class="config-btn secondary-btn" id="soundHeroRevBtn">REV ENGINE AUDIO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- LUXURY FOOTER -->
+  <!-- ================================================================= -->
+  <footer class="porsche-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-porsche">Dr. Ing. h.c. F. Porsche AG</span>
+          <p class="footer-tagline">There is no substitute.</p>
+        </div>
+        <div class="footer-links-group">
+          <a href="#scrollWrapper">Hero Timeline</a>
+          <a href="#cinemaSection">Director's Cut</a>
+          <a href="#performance">Specifications</a>
+          <a href="#cockpit">Cockpit</a>
+          <a href="#soundStudio">Sound Lab</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <span>© 2026 Porsche 911 Carrera Interactive Experience. Built with pure HTML5 video scroll-scrubbing.</span>
+        </div>
+        <button class="back-to-top-btn" id="backToTopBtn" title="Back to top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+          <span>BACK TO TOP</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Engine -->
+  <script src="app.js"></script>
+</body>
+</html>
